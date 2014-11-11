@@ -100,7 +100,7 @@ class Bank(models.Model, BankCommon):
             if part_bank_acc:
                 check = part_bank_acc._check_ccp_duplication()
                 if not check:
-                    raise exceptions.Warning(
+                    raise exceptions.ValidationError(
                         _('You can not enter a ccp both on the'
                           ' bank and on an account'
                           ' of type BV, BVR')
@@ -115,7 +115,7 @@ class Bank(models.Model, BankCommon):
                 continue
             if not (self._check_9_pos_postal_num(bank.ccp) or
                     self._check_5_pos_postal_num(bank.ccp)):
-                raise exceptions.Warning(
+                raise exceptions.ValidationError(
                     _('Please enter a correct postal number. '
                       '(01-23456-1 or 12345)')
                 )
@@ -203,7 +203,7 @@ class ResPartnerBank(models.Model, BankCommon):
                 self.adherent_num
             )
             if not valid:
-                raise exceptions.Warning(
+                raise exceptions.ValidationError(
                     'Your bank BVR adherent number must contain only '
                     'digits!\nPlease check your company '
                 )
@@ -222,7 +222,7 @@ class ResPartnerBank(models.Model, BankCommon):
             if not (
                     self._check_9_pos_postal_num(acc) or
                     self._check_5_pos_postal_num(acc)):
-                raise exceptions.Warning(
+                raise exceptions.ValidationError(
                     _('Please enter a correct postal number. '
                       '(01-23456-1 or 12345)')
                 )
@@ -248,7 +248,7 @@ class ResPartnerBank(models.Model, BankCommon):
                 self._check_9_pos_postal_num(p_bank.bank.ccp)
             )
             if part_bank_check and bank_check:
-                raise exceptions.Warning(
+                raise exceptions.ValidationError(
                     _('You can not enter a ccp both on '
                       'the bank and on an account '
                       'of type BV, BVR')
