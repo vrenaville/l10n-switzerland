@@ -2,6 +2,7 @@
 ##############################################################################
 #
 #    Author: Nicolas Bessi. Copyright Camptocamp SA
+#    Ported to v8.0 by Agile Business Group <http://www.agilebg.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,29 +19,26 @@
 #
 ##############################################################################
 
-{'name': 'Switzerland - Bank type',
- 'summary': 'Types and number validation for swiss electronic pmnt. DTA, ESR',
+{'name': 'Switzerland - Bank Payment File (DTA)',
+ 'summary': 'Electronic payment file for Swiss bank (DTA)',
  'description': """
-Swiss bank type and fields
-==========================
+Swiss bank electronic payment (DTA)
+===================================
 
-This addons will add different bank types required by specific swiss electronic
-payment like DTA and ESR. It allows to manage both Post and Bank systems.
+This addons allows you to generate an electronic payment file for Swiss bank
+(known as DTA). You'll found the wizard in payment order.
 
-It'll perform some validation when entring bank account number or ESR number
-in invoice and add some Swiss specific fields on bank.
-
-This module is required if you want to use electornic payment in Switzerland.
 """,
- 'version': '1.1',
+ 'version': '1.0.1',
  'author': 'Camptocamp',
  'category': 'Localization',
  'website': 'http://www.camptocamp.com',
- 'depends': ['account'],
- 'data': ['bank_view.xml', 'bank_data.xml'],
- 'demo': [],
- 'test': [],
+ 'depends': ['base', 'account_payment', 'l10n_ch_base_bank', 'document'],
+ 'data': ["wizard/create_dta_view.xml",
+          "bank_view.xml"],
+ 'demo': ["demo/dta_demo.xml"],
+ 'test': ["test/l10n_ch_dta.yml"],
  'auto_install': False,
- 'installable': False,
+ 'installable': True,
  'images': []
  }
