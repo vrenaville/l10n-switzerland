@@ -529,6 +529,11 @@ class scan_bvr(TransientModel):
             data['journal_id'] = bvr_data.journal_id.id
             data['bank_account'] = bvr_data.bank_account_id.id
             action = self._create_direct_invoice(cr, uid, ids, data, context)
+            # We will write the adherent BVR number if we have one
+            # for futur invoices
+            if data['bvr_struct']['domain'] == 'bvr_adherent_num':
+                bvr_data.bank_account_id.bvr_adherent_num = \
+                    data['bvr_struct']['bvrnumber']
             return action
         else:
             # we haven't found a valid bvr_adherent_number
