@@ -32,7 +32,7 @@ import time
 import base64
 
 from openerp.osv import orm, fields
-
+import unidecode
 from ..base_sepa.msg_sepa import MsgSEPAFactory
 
 
@@ -104,6 +104,9 @@ class WizardPain001(orm.TransientModel):
         pain = self._get_pain_def(cc)
 
         pain_001 = pain.compute_export(cr, uid, pay_id, context=context)
+        # Due to BCV restriction we remove all accent from file using unidecode
+        pain_001 = unidecode.unidecode(pain_001)
+        #
         pain_001_file = base64.encodestring(pain_001.encode('utf-8'))
 
         data = {'base64_data': pain_001_file, 'id': pay_id}
